@@ -19,18 +19,18 @@ spl_autoload_register(function ($class_name) {
 		{
 
 			$sql = "select * from users where username='".$user->username."' and password='".$user->password."'";
-			error_log($sql,3,"./log");
 			return $this->conn->query($sql);
 
 		}
 		public function getByUserName($user)
 		{
-			$result = $this->conn->query("select * from users where username='".$user->username."'");
+			$sql = "select * from users where username='".$user->username."'";
+			$result = $this->conn->query($sql);
 			return $result;
 		}
 		public function isUniqueUsername($user)
 		{
-			$result = getByUserName($user->username);
+			$result = $this->getByUserName($user);
 			return ($result->num_rows) == 0;
 
 		}

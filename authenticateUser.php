@@ -8,8 +8,11 @@
 		if(isset($_POST['sign_up'])){
 			sign_up();
 		}
-		else if(isset($_POST['login'])){
+		elseif(isset($_POST['login'])){
 			login();
+		}
+		elseif (isset($_POST['check_username'])) {
+			
 		}
 
 		function register_user($user)
@@ -18,16 +21,20 @@
 			$_SESSION['username'] = $user->username;
 
 		}
+
+		function isUniqueUsername(){
+			$conn = $GLOBALS['conn'];
+			$userManager = new UserManager($conn);
+			return $userManager->isUniqueUsername($user)
+		}
+
 		function sign_up()
 		{
 			$conn = $GLOBALS['conn'];
 			$user = User::fromRow($_POST);
 			$userManager = new UserManager($conn);
 
-			if(!$userManager->isUniqueUsername($user)){
-				echo "<h2>username not available</h2>";
-			}
-			elseif($userManager->save($user) == TRUE ){
+			if($userManager->save($user) == TRUE ){
 				echo "<h3>success</h3></br>";
 				register_user($user);
 				header('Location:./chooseDepartment.php',TRUE,301);

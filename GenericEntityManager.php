@@ -43,7 +43,7 @@
 		}
 		public function save(&$entity)
 		{
-			$this->insert($entity);
+			return $this->insert($entity);
 		}
 
 
