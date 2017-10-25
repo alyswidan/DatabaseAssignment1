@@ -19,6 +19,7 @@ spl_autoload_register(function ($class_name) {
 		{
 
 			$sql = "select * from courses where department_id={$department_id}";
+			error_log("$sql",3,'./log');
 			$result = $this->conn->query($sql);
 			$entities = array();
 			while($row = $result->fetch_assoc()){

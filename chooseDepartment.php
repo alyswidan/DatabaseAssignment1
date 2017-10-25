@@ -51,14 +51,18 @@ session_start();
 		$('#departments tr').on('click',function() {
 			$.ajax({
 				method: "POST",
-				url: "userRequestHandler.php",
+				url: "RegisterDepartment.php",
 				data: { dept_id:this.id }
 			})
-			.done(function( msg ) {
+			.done(function( msg ) {	
 				console.log(msg);
-				if(msg.search('1') > 0){
-					window.location = './chooseCourses.php'
+				if(msg == 1){
+					window.location = './chooseCourses.php';	
 				}
+				else{
+					alert("an error occured");
+				}
+							
 			});
 		});
 

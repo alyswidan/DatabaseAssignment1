@@ -1,4 +1,4 @@
-<<?php 
+<?php 
 
 	/**
 	* 
@@ -11,11 +11,6 @@
 		{
 		}
 		
-		public function props()
-		{
-			 var_dump( get_object_vars($this) );
-		}
-
 		public static function fromRow(array $row)
 		{
 			$instance = new static;
