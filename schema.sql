@@ -28,3 +28,11 @@ CREATE TABLE courses(
   Foreign key(department_id) REFERENCES departments(id)
   on delete set null
 );
+
+CREATE TABLE enrolled(
+  user_id INT,
+  course_id INT,
+  PRIMARY key (user_id,course_id),
+  Foreign key (user_id) REFERENCES users(id),
+  Foreign key (course_id) REFERENCES courses(id)
+);
