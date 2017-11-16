@@ -89,11 +89,11 @@ function login()
 		<h3>Login</h3>
 		<form id="login_form" action="" method="post" class="form-inline">
 			<label class="sr-only" for="inlineFormInput">Name</label>
-			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  Name ="username" ID="username-login" placeholder="username">
+			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  Name ="username" ID="username-login" placeholder="username" required>
 
 			<label class="sr-only" for="inlineFormInputGroup">Password</label>
 			<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-				<input type="password" class="form-control" placeholder="password" Name ="password" ID="password_login" >
+				<input type="password" class="form-control" placeholder="password" Name ="password" ID="password_login" required>
 			</div>
 
 			<button name="login" type="submit" class="btn btn-primary">Submit</button>
