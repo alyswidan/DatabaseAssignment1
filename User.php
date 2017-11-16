@@ -8,11 +8,12 @@ spl_autoload_register(function ($class_name) {
 	*/
 	class User extends Entity
 	{
-		public $first_name,$last_name,$username,$password,$email,$registration_date,$department_id;
+		public $first_name,$last_name,$username,$email,$registration_date,$department_id;
 		private $password;
 
 		function __set($name,$value){
 			if(method_exists($this, $name)){
+				$name = "set".$name;
 				$this->$name($value);
 			}
 			else{
@@ -22,6 +23,7 @@ spl_autoload_register(function ($class_name) {
 
 		function __get($name){
 			if(method_exists($this, $name)){
+				$name = "get".$name;
 				return $this->$name();
 			}
 			elseif(property_exists($this,$name)){
@@ -30,13 +32,13 @@ spl_autoload_register(function ($class_name) {
 			 return null;
 		}
 
-		public function password($password){
+		public function setpassword($password){
         $this->password = md5($password);
     	}
 
-    	public function password(){
-    		return $this->password
+    	public function getpassword(){
+    		return $this->password;
     	}
+    }
 
-
-		?>
+?>

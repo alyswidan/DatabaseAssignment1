@@ -44,50 +44,56 @@ session_start();
 					echo "<td class='credit-hours'>{$course->credit_hours}</td>";
 
 					echo '<td class="add-course"><span>
-                        <span class="btn btn-xs btn-default ">
-                            <span class="glyphicon glyphicon-plus  remove-item" ></span>
-                        </span>
-                    </span></td>';
-					
-					echo "</tr>";
-				}
+					<span class="btn btn-xs btn-default ">
+						<span class="glyphicon glyphicon-plus  remove-item" ></span>
+					</span>
+				</span></td>';
 
-				?>
-			</tbody>
-		</table>
-		<hr/>
-		<h3>Selected courses</h3>
-		<ul class="list-group" id="choosen-courses">
-		</ul>
-	</div>
-
-	<script type="text/javascript">
-		$('#courses tr').on('click',function() {
-			let x = `tr#${this.id} > td.name`;
-			let name = $(x).text();
-			//$(`tr#${this.id} > btn`).addClass('disabled');
-			$("#choosen-courses").append(` 
-				<a class="list-group-item clearfix" id=${this.id}>
-					${name}
-                    <span class="pull-right">
-                        <span class="btn btn-xs btn-default ">
-                            <span class="glyphicon glyphicon-minus remove-item" ></span>
-                        </span>
-                    </span>
-                </a>`)
-		});
-
-		$('#choosen-courses').click(function (e) {
-			if(e.target.className.split(' ').includes('remove-item'))
-			{	
-				$(e.target).closest('a')[0].remove();
+				echo "</tr>";
 			}
-		});
-		
-		
+
+			?>
+		</tbody>
+	</table>
+	<hr/>
+	<h3>Selected courses</h3>
+	<ul class="list-group" id="choosen-courses">
+	</ul>
+</div>
+
+<script type="text/javascript">
+
+	$('#courses tr').on('click',function() {
+
+		let name = $(`tr#${this.id} > td.name`).text();
+		$(`tr#${this.id}  .btn`).addClass('disabled');
+
+		$("#choosen-courses").append(` 
+			<a class="list-group-item clearfix" id=${this.id}>
+				${name}
+				<span class="pull-right">
+					<span class="btn btn-xs btn-default ">
+						<span class="glyphicon glyphicon-minus remove-item" ></span>
+					</span>
+				</span>
+			</a>`)
+	});
+
+	$('#choosen-courses').click(function (e) {
+		if(e.target.className.split(' ').includes('remove-item'))
+		{	
+			let remove_anchor = $($(e.target).closest('a')[0]); 
+			let item_id = remove_anchor.attr('id')
+			remove_anchor.remove();
+			$(`tr#${item_id}  .btn`).removeClass('disabled');
+
+		}
+	});
 
 
-	</script>
+
+
+</script>
 
 </body>
 </html>
