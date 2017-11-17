@@ -44,8 +44,8 @@ session_start();
 					echo "<td class='credit-hours'>{$course->credit_hours}</td>";
 
 					echo '<td class="add-course"><span>
-					<span class="btn btn-xs btn-default ">
-						<span class="glyphicon glyphicon-plus  remove-item" ></span>
+					<span class="btn btn-xs btn-default select-course">
+						<span class="glyphicon glyphicon-plus  select-course" ></span>
 					</span>
 				</span></td>';
 
@@ -63,24 +63,33 @@ session_start();
 
 <script type="text/javascript">
 
-	$('#courses tr').on('click',function() {
 
-		let name = $(`tr#${this.id} > td.name`).text();
-		$(`tr#${this.id}  .btn`).addClass('disabled');
-
-		$("#choosen-courses").append(` 
-			<a class="list-group-item clearfix" id=${this.id}>
+$('#courses').click((e)=> {
+	if($(e.target).hasClass('select-course'))
+		{	
+			let row = $($(e.target).closest('tr')[0]); 
+			let btn = $($(e.target).closest('.btn')[0]);
+			let item_id = row.attr('id');
+			let name = row.find('.name').text();
+			if(!btn.hasClass('disabled')){
+				btn.addClass('disabled');
+			$("#choosen-courses").append(` 
+			<a class="list-group-item clearfix" id=${item_id}>
 				${name}
 				<span class="pull-right">
-					<span class="btn btn-xs btn-default ">
-						<span class="glyphicon glyphicon-minus remove-item" ></span>
+					<span class="btn btn-xs btn-default remove-course">
+						<span class="glyphicon glyphicon-minus remove-course" ></span>
 					</span>
 				</span>
 			</a>`)
-	});
+			}
+			
 
-	$('#choosen-courses').click(function (e) {
-		if(e.target.className.split(' ').includes('remove-item'))
+		}
+})
+
+	$('#choosen-courses').click((e)=> {
+		if($(e.target).hasClass('remove-course'))
 		{	
 			let remove_anchor = $($(e.target).closest('a')[0]); 
 			let item_id = remove_anchor.attr('id')

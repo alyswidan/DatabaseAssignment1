@@ -20,7 +20,6 @@ function sign_up()
 {
 	$conn = $GLOBALS['conn'];
 	$user = User::fromRow($_POST);
-	var_dump($user);
 	$userManager = new UserManager($conn);
 	$res = $userManager->save($user);
 	if($res == TRUE ){
