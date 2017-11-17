@@ -12,17 +12,18 @@ spl_autoload_register(function ($class_name) {
 		private $password;
 
 		function __set($name,$value){
-			if(method_exists($this, $name)){
+			if(method_exists($this,"set".$name)){
 				$name = "set".$name;
 				$this->$name($value);
 			}
 			else{
 				$this->$name = $value;
 			}
+
 		}
 
 		function __get($name){
-			if(method_exists($this, $name)){
+			if(method_exists($this, "get".$name)){
 				$name = "get".$name;
 				return $this->$name();
 			}

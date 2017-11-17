@@ -22,10 +22,10 @@
 
 		}
 
-		function isUniqueUsername(){
+		function isUniqueUsername($username){
 			$conn = $GLOBALS['conn'];
 			$userManager = new UserManager($conn);
-			return $userManager->isUniqueUsername($user)
+			return $userManager->isUniqueUsername($username)
 		}
 
 		function sign_up()

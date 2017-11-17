@@ -20,12 +20,13 @@ function sign_up()
 {
 	$conn = $GLOBALS['conn'];
 	$user = User::fromRow($_POST);
+	var_dump($user);
 	$userManager = new UserManager($conn);
 	$res = $userManager->save($user);
 	if($res == TRUE ){
 		set_session($user);
 		header('Location:./chooseDepartment.php',TRUE,301);
-		error_log("hi",3,'./log');
+		
 	}
 	else {
 		return $conn->error;	
@@ -88,31 +89,40 @@ function login()
 	<div class="container">
 		<h3>Login</h3>
 		<form id="login_form" action="" method="post" class="form-inline">
-			<label class="sr-only" for="inlineFormInput">Name</label>
+
+
 			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  Name ="username" ID="username-login" placeholder="username" required>
 
-			<label class="sr-only" for="inlineFormInputGroup">Password</label>
-			<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-				<input type="password" class="form-control" placeholder="password" Name ="password" ID="password_login" required>
+
+			<div class="form-group has-error has-feedback" >
+				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+					<input type="password" class="form-control form-control-danger" placeholder="password" Name ="password" ID="password_login" required>
+
+					<div class="invalid-feedback">
+						Invalid username or password.
+					</div>
+
+				</div>
+				
 			</div>
 
-			<button name="login" type="submit" class="btn btn-primary">Submit</button>
+
+
+			<button name="login" type="submit" class="btn btn-primary">Login</button>
 		</form>
 	</div>
 
 	<?php 
+	
 	if(isset($_POST['login'])){
-		login();
+		$res = login();
+		echo '<script type="text/javascript"> $("#password_login").addClass("is-invalid");</script>';
 	}
 	?>
-
+	<br>
 	<hr/>
 
 	<div class="container">
-
-
-
-
 		<h3>new user?</h3>
 
 		<form id="sign_up_form" action="" method="post" class="col-sm-2 col-lg-4 ">
@@ -138,28 +148,32 @@ function login()
 				<div class="invalid-feedback">
 					This username is already taken,please try another one.
 				</div>
-
-
 			</div>
-			<?php
-			if( (isset($_POST['sign_up']) && !isUniqueUsername(User::fromRow($_POST))))
-				echo '<script type="text/javascript"> $("#username-signup").addClass("is-invalid");</script>';
-			else {
-				if(($res = sign_up()) != "success"){
-					echo $res;
-				}
-			}
-			?>
+			
 			<div class="form-group row">
 				<div class="offset-sm-2 col-sm-10">
-					<button type="submit" Name="sign_up" class="btn btn-primary">Sign Up</button>
+					<button type="submit" name="sign_up" class="btn btn-primary">Sign Up</button>
 				</div>
 			</div>
 		</form>
 	</div>
 
+	<?php
 
 
+	if(isset($_POST['sign_up'])){
+
+		if(!isUniqueUsername(User::fromRow($_POST))){
+			echo '<script type="text/javascript"> $("#username-signup").addClass("is-invalid");</script>';
+		}
+		else{
+			sign_up();
+		}
+	}
+
+
+
+	?>
 
 
 	<script type="text/javascript">
