@@ -86,37 +86,29 @@ function login()
 </head>
 <body>
 
-	<div class="container">
+	<form class="container" action="" method="post">
 		<h3>Login</h3>
-		<form id="login_form" action="" method="post" class="form-inline">
 
-
-			<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"  Name ="username" ID="username-login" placeholder="username" required>
-
-
-			<div class="form-group has-error has-feedback" >
-				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
-					<input type="password" class="form-control form-control-danger" placeholder="password" Name ="password" ID="password_login" required>
-
-					<div class="invalid-feedback">
-						Invalid username or password.
-					</div>
-
+		<div class="row">
+			<div class="col-md-3 mb-3">
+				<input type="text" class="form-control" name ="username" ID="username_login" placeholder="username" required>
+				<div class="invalid-feedback">
+					Invalid username or password.
 				</div>
-				
 			</div>
-
-
-
-			<button name="login" type="submit" class="btn btn-primary">Login</button>
-		</form>
-	</div>
-
+			<div class="col-md-3 mb-3">
+				<input type="password" class="form-control"  placeholder="password" Name ="password" ID="password_login" required>
+				<div class="invalid-feedback">
+				</div>
+			</div>
+		</div>
+		<button name="login" type="submit" class="btn btn-primary">Login</button>
+	</form>
 	<?php 
 	
 	if(isset($_POST['login'])){
 		$res = login();
-		echo '<script type="text/javascript"> $("#password_login").addClass("is-invalid");</script>';
+		echo '<script type="text/javascript"> $("#username_login").addClass("is-invalid");$("#password_login").addClass("is-invalid");</script>';
 	}
 	?>
 	<br>
@@ -151,9 +143,7 @@ function login()
 			</div>
 			
 			<div class="form-group row">
-				<div class="offset-sm-2 col-sm-10">
-					<button type="submit" name="sign_up" class="btn btn-primary">Sign Up</button>
-				</div>
+				<button type="submit" name="sign_up" class="btn btn-primary">Sign Up</button>
 			</div>
 		</form>
 	</div>
